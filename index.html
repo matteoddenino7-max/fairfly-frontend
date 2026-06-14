@@ -6,15 +6,7 @@
 <title>FairFly — il motore che lavora per te</title>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
-:root{
-  --bg:#F7F6F2;--surface:#FFFFFF;--surface2:#F0EFE9;
-  --border:#E2E0D8;--border2:#D0CEC4;
-  --text:#1A1917;--text2:#6B6860;--text3:#A09E98;
-  --green:#1A6B4A;--green-bg:#E8F5EE;
-  --purple:#3B2F8F;--purple-bg:#EEEDF8;
-  --amber:#7A4A0A;--amber-bg:#FDF2E0;
-  --r:12px;--rsm:8px;
-}
+:root{--bg:#F7F6F2;--surface:#FFFFFF;--surface2:#F0EFE9;--border:#E2E0D8;--border2:#D0CEC4;--text:#1A1917;--text2:#6B6860;--text3:#A09E98;--green:#1A6B4A;--green-bg:#E8F5EE;--purple:#3B2F8F;--purple-bg:#EEEDF8;--amber:#7A4A0A;--amber-bg:#FDF2E0;--r:12px;--rsm:8px}
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;padding:2rem 1rem 4rem}
 .wrap{max-width:700px;margin:0 auto}
@@ -45,6 +37,8 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
 .sdot.spinning{border-color:var(--text);border-top-color:transparent;animation:spin 0.7s linear infinite}
 .sdot.done{background:var(--green-bg);border-color:var(--green);color:var(--green);font-weight:700}
 @keyframes spin{to{transform:rotate(360deg)}}
+.coldstart-note{display:none;font-size:13px;color:var(--text2);padding:10px 14px;background:var(--amber-bg);border-radius:var(--rsm);margin-top:12px;line-height:1.5}
+.coldstart-note.visible{display:block}
 .error-box{background:#FFF0F0;border:1px solid #FFCDD2;border-radius:var(--r);padding:1.25rem;margin-bottom:1rem;display:none}
 .error-box.visible{display:block}
 .error-title{font-size:14px;font-weight:600;color:var(--amber);margin-bottom:4px}
@@ -64,6 +58,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
 .stab{padding:6px 14px;font-size:12px;font-family:'DM Sans',sans-serif;border:1px solid var(--border);border-radius:20px;background:transparent;color:var(--text2);cursor:pointer;transition:all 0.15s}
 .stab.active{background:var(--text);color:#fff;border-color:var(--text);font-weight:500}
 .hub-info{font-size:12px;color:var(--text2);margin-bottom:1.25rem;padding:8px 12px;background:var(--surface2);border-radius:var(--rsm)}
+.cached-note{font-size:11px;color:var(--text3);text-align:right;margin-bottom:8px}
 .card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:1.25rem;margin-bottom:10px;transition:border-color 0.15s}
 .card:hover{border-color:var(--border2)}
 .card.best{border:1.5px solid var(--green)}
@@ -95,9 +90,6 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
 .l-info{font-size:11px;color:var(--text3)}
 .ap{font-size:11px;color:var(--text2);min-width:50px;font-family:'DM Mono',monospace}
 .ap.r{text-align:right}
-.conn-badge{display:flex;align-items:center;gap:8px;padding:6px 12px;border-radius:var(--rsm);font-size:12px;margin:4px 0}
-.conn-ok{background:var(--green-bg);color:var(--green)}
-.conn-warn{background:var(--amber-bg);color:var(--amber)}
 .explain{font-size:13px;color:var(--text2);line-height:1.55;padding:10px 12px;background:var(--surface2);border-radius:var(--rsm);margin-bottom:12px}
 .disc{display:flex;gap:8px;align-items:flex-start;font-size:12px;color:var(--text2);line-height:1.5;padding:8px 12px;border:1px solid var(--border);border-radius:var(--rsm);margin-top:8px}
 .card-bot{display:flex;align-items:center;justify-content:space-between;padding-top:12px;border-top:1px solid var(--border);gap:12px}
@@ -107,19 +99,16 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
 .p-save{font-size:12px;color:var(--green);font-weight:600}
 .buy-btn{padding:9px 18px;font-size:13px;font-weight:500;font-family:'DM Sans',sans-serif;border:1px solid var(--border);border-radius:var(--rsm);background:transparent;color:var(--text);cursor:pointer;display:flex;align-items:center;gap:6px;white-space:nowrap;transition:all 0.15s;flex-shrink:0;text-decoration:none}
 .buy-btn:hover{background:var(--surface2)}
-.no-res{text-align:center;padding:2.5rem;color:var(--text2);font-size:14px}
+.no-res{text-align:center;padding:2.5rem;color:var(--text2);font-size:14px;line-height:1.6}
 .footer-note{font-size:12px;color:var(--text3);text-align:center;padding:1.25rem 0 0;border-top:1px solid var(--border);margin-top:1rem;line-height:1.6}
-.cached-note{font-size:11px;color:var(--text3);text-align:right;margin-bottom:8px}
 </style>
 </head>
 <body>
 <div class="wrap">
-
   <div class="brand">
     <span class="brand-name">Fair<span class="brand-dot">·</span>Fly</span>
     <span class="brand-tag">il motore che lavora per te</span>
   </div>
-
   <div class="search-box">
     <div class="trip-toggle">
       <button class="trip-btn active" onclick="setTrip('oneway',this)">Solo andata</button>
@@ -134,373 +123,92 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
       <div class="field"><label>Partenza</label><input type="date" id="dep"></div>
       <div class="field" id="ret-wrap" style="display:none"><label>Ritorno</label><input type="date" id="ret"></div>
       <div class="field"><label>Passeggeri</label>
-        <select id="pax">
-          <option value="1">1 adulto</option>
-          <option value="2">2 adulti</option>
-          <option value="3">3 adulti</option>
-        </select>
+        <select id="pax"><option value="1">1 adulto</option><option value="2">2 adulti</option><option value="3">3 adulti</option></select>
       </div>
     </div>
     <button class="search-btn" id="search-btn" onclick="doSearch()">✈ &nbsp;Cerca tutti i prezzi</button>
   </div>
-
   <div class="error-box" id="error-box">
-    <div class="error-title" id="error-title">Errore</div>
+    <div class="error-title">Qualcosa è andato storto</div>
     <div class="error-msg" id="error-msg"></div>
   </div>
-
-  <div class="loading" id="loading"><ul class="load-steps" id="load-steps"></ul></div>
-
+  <div class="loading" id="loading">
+    <ul class="load-steps" id="load-steps"></ul>
+    <div class="coldstart-note" id="coldstart-note">⏳ Il server si sta avviando — ci vorranno ancora 20-30 secondi. Grazie per la pazienza.</div>
+  </div>
   <div class="results" id="results">
     <div class="cached-note" id="cached-note"></div>
-    <div class="res-top">
-      <div class="res-title" id="res-title"></div>
-      <div class="res-date" id="res-date"></div>
-    </div>
+    <div class="res-top"><div class="res-title" id="res-title"></div><div class="res-date" id="res-date"></div></div>
     <div class="summary-strip" id="summary-strip"></div>
     <div class="stabs" id="stabs"></div>
     <div class="hub-info" id="hub-info"></div>
     <div id="cards"></div>
-    <div class="footer-note">
-      FairFly non vende biglietti · acquisto direttamente sul sito della compagnia<br>
-      <span style="color:var(--text3)">Dati reali aggiornati al momento della ricerca</span>
-    </div>
+    <div class="footer-note">FairFly non vende biglietti · acquisto direttamente sul sito della compagnia<br><span style="color:var(--text3)">Dati reali aggiornati al momento della ricerca</span></div>
   </div>
 </div>
-
 <script>
-// ── CONFIG ────────────────────────────────────────────────────────────────
-// Cambia questo URL con quello del tuo backend Render dopo il deploy
-const BACKEND_URL = 'https://fairfly-backend.onrender.com';
-
-// ── AIRPORTS ──────────────────────────────────────────────────────────────
-const AP = [
-  {c:'MXP',city:'Milano Malpensa',co:'IT'},{c:'BGY',city:'Bergamo',co:'IT'},
-  {c:'LIN',city:'Milano Linate',co:'IT'},{c:'FCO',city:'Roma Fiumicino',co:'IT'},
-  {c:'CIA',city:'Roma Ciampino',co:'IT'},{c:'VCE',city:'Venezia',co:'IT'},
-  {c:'NAP',city:'Napoli',co:'IT'},{c:'BLQ',city:'Bologna',co:'IT'},
-  {c:'TRN',city:'Torino',co:'IT'},{c:'PSA',city:'Pisa',co:'IT'},
-  {c:'BRI',city:'Bari',co:'IT'},{c:'CTA',city:'Catania',co:'IT'},
-  {c:'BUD',city:'Budapest',co:'HU'},{c:'WAW',city:'Varsavia',co:'PL'},
-  {c:'PRG',city:'Praga',co:'CZ'},{c:'VIE',city:'Vienna',co:'AT'},
-  {c:'BRU',city:'Bruxelles',co:'BE'},{c:'AMS',city:'Amsterdam',co:'NL'},
-  {c:'BCN',city:'Barcellona',co:'ES'},{c:'MAD',city:'Madrid',co:'ES'},
-  {c:'LIS',city:'Lisbona',co:'PT'},{c:'ATH',city:'Atene',co:'GR'},
-  {c:'OTP',city:'Bucarest',co:'RO'},{c:'SOF',city:'Sofia',co:'BG'},
-  {c:'ZRH',city:'Zurigo',co:'CH'},{c:'GVA',city:'Ginevra',co:'CH'},
-  {c:'LYS',city:'Lione',co:'FR'},{c:'MRS',city:'Marsiglia',co:'FR'},
-  {c:'NTE',city:'Nantes',co:'FR'},{c:'DUB',city:'Dublino',co:'IE'},
-  {c:'EDI',city:'Edimburgo',co:'GB'},{c:'BHX',city:'Birmingham',co:'GB'},
-  {c:'STN',city:'Londra Stansted',co:'GB'},{c:'LGW',city:'Londra Gatwick',co:'GB'},
-  {c:'OSL',city:'Oslo',co:'NO'},{c:'ARN',city:'Stoccolma',co:'SE'},
-  {c:'CPH',city:'Copenaghen',co:'DK'},{c:'HEL',city:'Helsinki',co:'FI'},
-  {c:'RIX',city:'Riga',co:'LV'},{c:'TLL',city:'Tallinn',co:'EE'},
-  {c:'VNO',city:'Vilnius',co:'LT'},{c:'KRK',city:'Cracovia',co:'PL'},
-  {c:'KTW',city:'Katowice',co:'PL'},{c:'SKG',city:'Salonicco',co:'GR'},
-  {c:'HER',city:'Creta',co:'GR'},{c:'SPU',city:'Spalato',co:'HR'},
-  {c:'DBV',city:'Dubrovnik',co:'HR'},{c:'BEG',city:'Belgrado',co:'RS'},
-  {c:'LJU',city:'Lubiana',co:'SI'},{c:'TIA',city:'Tirana',co:'AL'},
-  {c:'SKP',city:'Skopje',co:'MK'},{c:'KUT',city:'Kutaisi',co:'GE'},
-  {c:'TGD',city:'Podgorica',co:'ME'},{c:'WRO',city:'Breslavia',co:'PL'},
-];
-
-// ── AIRLINE HELPERS ───────────────────────────────────────────────────────
-function alCls(name){
-  if(!name)return 'al-other';
-  const n=name.toLowerCase();
-  if(n.includes('ryanair'))return 'al-ryanair';
-  if(n.includes('wizz'))return 'al-wizz';
-  if(n.includes('easyjet')||n.includes('easy jet'))return 'al-easyjet';
-  if(n.includes('vueling'))return 'al-vueling';
-  if(n.includes('transavia'))return 'al-transavia';
-  if(n.includes('norwegian'))return 'al-norwegian';
-  if(n.includes('volotea'))return 'al-volotea';
-  return 'al-other';
-}
-function alShort(name){
-  if(!name)return '??';
-  const n=name.toLowerCase();
-  if(n.includes('ryanair'))return 'FR';
-  if(n.includes('wizz'))return 'W6';
-  if(n.includes('easyjet'))return 'U2';
-  if(n.includes('vueling'))return 'VY';
-  if(n.includes('transavia'))return 'HV';
-  if(n.includes('norwegian'))return 'DY';
-  if(n.includes('volotea'))return 'V7';
-  return name.slice(0,2).toUpperCase();
-}
-
-function ratingBadge(rating){
-  if(!rating)return '';
-  const map={green:'badge-green',yellow:'badge-yellow',red:'badge-red'};
-  const icons={green:'🟢',yellow:'🟡',red:'🔴'};
-  return `<span class="badge ${map[rating.level]}">${icons[rating.level]} ${rating.label}</span>`;
-}
-
-// ── BUILD CARDS ───────────────────────────────────────────────────────────
+const BACKEND_URL='https://fairfly-backend.onrender.com';
+const AP=[{c:'MXP',city:'Milano Malpensa'},{c:'BGY',city:'Bergamo'},{c:'LIN',city:'Milano Linate'},{c:'FCO',city:'Roma Fiumicino'},{c:'CIA',city:'Roma Ciampino'},{c:'VCE',city:'Venezia'},{c:'NAP',city:'Napoli'},{c:'BLQ',city:'Bologna'},{c:'TRN',city:'Torino'},{c:'PSA',city:'Pisa'},{c:'BRI',city:'Bari'},{c:'CTA',city:'Catania'},{c:'BUD',city:'Budapest'},{c:'WAW',city:'Varsavia'},{c:'PRG',city:'Praga'},{c:'VIE',city:'Vienna'},{c:'BRU',city:'Bruxelles'},{c:'AMS',city:'Amsterdam'},{c:'BCN',city:'Barcellona'},{c:'MAD',city:'Madrid'},{c:'LIS',city:'Lisbona'},{c:'ATH',city:'Atene'},{c:'OTP',city:'Bucarest'},{c:'SOF',city:'Sofia'},{c:'ZRH',city:'Zurigo'},{c:'GVA',city:'Ginevra'},{c:'LYS',city:'Lione'},{c:'MRS',city:'Marsiglia'},{c:'NTE',city:'Nantes'},{c:'DUB',city:'Dublino'},{c:'EDI',city:'Edimburgo'},{c:'BHX',city:'Birmingham'},{c:'STN',city:'Londra Stansted'},{c:'LGW',city:'Londra Gatwick'},{c:'OSL',city:'Oslo'},{c:'ARN',city:'Stoccolma'},{c:'CPH',city:'Copenaghen'},{c:'HEL',city:'Helsinki'},{c:'RIX',city:'Riga'},{c:'TLL',city:'Tallinn'},{c:'VNO',city:'Vilnius'},{c:'KRK',city:'Cracovia'},{c:'KTW',city:'Katowice'},{c:'SKG',city:'Salonicco'},{c:'HER',city:'Creta'},{c:'SPU',city:'Spalato'},{c:'DBV',city:'Dubrovnik'},{c:'BEG',city:'Belgrado'},{c:'LJU',city:'Lubiana'},{c:'TIA',city:'Tirana'},{c:'SKP',city:'Skopje'},{c:'KUT',city:'Kutaisi'},{c:'TGD',city:'Podgorica'},{c:'WRO',city:'Breslavia'}];
+function alCls(n){if(!n)return 'al-other';const l=n.toLowerCase();if(l.includes('ryanair'))return 'al-ryanair';if(l.includes('wizz'))return 'al-wizz';if(l.includes('easyjet'))return 'al-easyjet';if(l.includes('vueling'))return 'al-vueling';if(l.includes('transavia'))return 'al-transavia';if(l.includes('norwegian'))return 'al-norwegian';if(l.includes('volotea'))return 'al-volotea';return 'al-other';}
+function alShort(n){if(!n)return '??';const l=n.toLowerCase();if(l.includes('ryanair'))return 'FR';if(l.includes('wizz'))return 'W6';if(l.includes('easyjet'))return 'U2';if(l.includes('vueling'))return 'VY';if(l.includes('transavia'))return 'HV';if(l.includes('norwegian'))return 'DY';if(l.includes('volotea'))return 'V7';return n.slice(0,2).toUpperCase();}
+function ratingBadge(r){if(!r)return '';const map={green:'badge-green',yellow:'badge-yellow',red:'badge-red'};const icons={green:'🟢',yellow:'🟡',red:'🔴'};return `<span class="badge ${map[r.level]}">${icons[r.level]} ${r.label}</span>`;}
 function buildCard(r){
   const best=r.isBest?'<span class="badge badge-best">Miglior prezzo</span>':'';
-  const dep=r.depTime||'--:--';
-  const arr=r.arrTime||'--:--';
-  const dur=r.duration?.label||'';
-  const stops=r.stops?.label||'';
-  const url=r.url||'#';
-  const target=url==='#'?'':' target="_blank"';
-
-  if(r.type==='direct'){
-    return `<div class="card${r.isBest?' best':''}">
-      <div class="card-top">
-        <div class="airlines"><div class="alogo ${alCls(r.airline)}">${alShort(r.airline)}</div><span class="airline-nm">${r.airline}</span></div>
-        <div class="badges">${best}<span class="badge badge-direct">Diretto</span>${ratingBadge(r.rating)}</div>
-      </div>
-      <div class="legs"><div class="leg">
-        <div><div class="t">${dep}</div><div class="ap">${r.from}</div></div>
-        <div class="leg-mid"><div class="l-dur">${dur}</div><div class="l-bar"></div><div class="l-info">${stops}</div></div>
-        <div><div class="t r">${arr}</div><div class="ap r">${r.to}</div></div>
-      </div></div>
-      <div class="card-bot">
-        <div class="price-block"><span class="p-main">€${r.price}</span></div>
-        <a class="buy-btn" href="${url}"${target}>Acquista su ${r.airline} ↗</a>
-      </div>
-    </div>`;
-  }
-
-  if(r.type==='bidirectional'){
-    return `<div class="card">
-      <div class="card-top">
-        <div class="airlines"><div class="alogo ${alCls(r.airline)}">${alShort(r.airline)}</div><span class="airline-nm">${r.airline}</span></div>
-        <div class="badges"><span class="badge badge-bidir">Biglietto invertito</span>${ratingBadge(r.rating)}</div>
-      </div>
-      <div class="explain">${r.explain}</div>
-      <div class="legs"><div class="leg">
-        <div><div class="t">${dep}</div><div class="ap">${r.from}</div></div>
-        <div class="leg-mid"><div class="l-dur">${dur}</div><div class="l-bar"></div><div class="l-info">diretto</div></div>
-        <div><div class="t r">${arr}</div><div class="ap r">${r.to}</div></div>
-      </div></div>
-      <div class="card-bot">
-        <div class="price-block">
-          <span class="p-main">€${r.price}</span>
-          <span class="p-orig">€${r.origPrice}</span>
-          <span class="p-save">risparmi €${r.saving}</span>
-        </div>
-        <a class="buy-btn" href="${url}"${target}>Acquista su ${r.airline} ↗</a>
-      </div>
-    </div>`;
-  }
-
-  if(r.type==='virtual'){
-    const al1=r.airlines?.[0]||r.airline;
-    const al2=r.airlines?.[1]||r.airline;
-    const hub=r.hub||'?';
-    const segsHtml = r.segments?.length >= 2 ? `
-      <div style="display:flex;gap:8px;margin-bottom:8px">
-        <div style="flex:1;background:var(--surface2);border-radius:var(--rsm);padding:6px 10px">
-          <div style="font-size:10px;color:var(--text3);text-transform:uppercase;margin-bottom:2px">Volo 1</div>
-          <div style="font-size:12px;font-weight:500">${al1}</div>
-          <div style="font-size:11px;color:var(--text2)">${r.segments[0].from} → ${r.segments[0].to}</div>
-        </div>
-        <div style="display:flex;align-items:center;color:var(--text3)">+</div>
-        <div style="flex:1;background:var(--surface2);border-radius:var(--rsm);padding:6px 10px">
-          <div style="font-size:10px;color:var(--text3);text-transform:uppercase;margin-bottom:2px">Volo 2</div>
-          <div style="font-size:12px;font-weight:500">${al2}</div>
-          <div style="font-size:11px;color:var(--text2)">${r.segments[1].from} → ${r.segments[1].to}</div>
-        </div>
-      </div>` : '';
-    return `<div class="card">
-      <div class="card-top">
-        <div class="airlines">
-          <div class="alogo ${alCls(al1)}">${alShort(al1)}</div><span class="airline-nm">${al1}</span>
-          <span style="color:var(--text3);font-size:11px">+</span>
-          <div class="alogo ${alCls(al2)}">${alShort(al2)}</div><span class="airline-nm">${al2}</span>
-        </div>
-        <div class="badges">${best}<span class="badge badge-virtual">Virtual interlining</span>${ratingBadge(r.rating)}</div>
-      </div>
-      ${segsHtml}
-      <div class="legs"><div class="leg">
-        <div><div class="t">${dep}</div><div class="ap">${r.from}</div></div>
-        <div class="leg-mid"><div class="l-dur">${dur}</div><div class="l-bar"></div><div class="l-info">via ${hub}</div></div>
-        <div><div class="t r">${arr}</div><div class="ap r">${r.to}</div></div>
-      </div></div>
-      <div class="disc">ℹ Voli non collegati: se il primo ritarda il secondo non aspetta. Compra i due biglietti separatamente sui rispettivi siti.</div>
-      <div class="card-bot">
-        <div class="price-block"><span class="p-main">€${r.price}</span></div>
-        <a class="buy-btn" href="${url}"${target}>Acquista ↗</a>
-      </div>
-    </div>`;
-  }
+  const dep=r.depTime||'--:--',arr=r.arrTime||'--:--',dur=r.duration?.label||'',stops=r.stops?.label||'',url=r.url||'#',tgt=url!=='#'?' target="_blank"':'';
+  if(r.type==='direct')return `<div class="card${r.isBest?' best':''}"><div class="card-top"><div class="airlines"><div class="alogo ${alCls(r.airline)}">${alShort(r.airline)}</div><span class="airline-nm">${r.airline}</span></div><div class="badges">${best}<span class="badge badge-direct">Diretto</span>${ratingBadge(r.rating)}</div></div><div class="legs"><div class="leg"><div><div class="t">${dep}</div><div class="ap">${r.from}</div></div><div class="leg-mid"><div class="l-dur">${dur}</div><div class="l-bar"></div><div class="l-info">${stops}</div></div><div><div class="t r">${arr}</div><div class="ap r">${r.to}</div></div></div></div><div class="card-bot"><div class="price-block"><span class="p-main">€${r.price}</span></div><a class="buy-btn" href="${url}"${tgt}>Acquista su ${r.airline} ↗</a></div></div>`;
+  if(r.type==='bidirectional')return `<div class="card"><div class="card-top"><div class="airlines"><div class="alogo ${alCls(r.airline)}">${alShort(r.airline)}</div><span class="airline-nm">${r.airline}</span></div><div class="badges"><span class="badge badge-bidir">Biglietto invertito</span>${ratingBadge(r.rating)}</div></div><div class="explain">${r.explain}</div><div class="legs"><div class="leg"><div><div class="t">${dep}</div><div class="ap">${r.from}</div></div><div class="leg-mid"><div class="l-dur">${dur}</div><div class="l-bar"></div><div class="l-info">diretto</div></div><div><div class="t r">${arr}</div><div class="ap r">${r.to}</div></div></div></div><div class="card-bot"><div class="price-block"><span class="p-main">€${r.price}</span><span class="p-orig">€${r.origPrice}</span><span class="p-save">risparmi €${r.saving}</span></div><a class="buy-btn" href="${url}"${tgt}>Acquista su ${r.airline} ↗</a></div></div>`;
+  if(r.type==='virtual'){const al1=r.airlines?.[0]||r.airline,al2=r.airlines?.[1]||r.airline;const sh=r.segments?.length>=2?`<div style="display:flex;gap:8px;margin-bottom:10px"><div style="flex:1;background:var(--surface2);border-radius:var(--rsm);padding:8px 10px"><div style="font-size:10px;color:var(--text3);text-transform:uppercase;margin-bottom:3px">Volo 1</div><div style="font-size:12px;font-weight:500">${al1}</div><div style="font-size:11px;color:var(--text2)">${r.segments[0].from} → ${r.segments[0].to}</div></div><div style="display:flex;align-items:center;color:var(--text3);font-size:18px">+</div><div style="flex:1;background:var(--surface2);border-radius:var(--rsm);padding:8px 10px"><div style="font-size:10px;color:var(--text3);text-transform:uppercase;margin-bottom:3px">Volo 2</div><div style="font-size:12px;font-weight:500">${al2}</div><div style="font-size:11px;color:var(--text2)">${r.segments[1].from} → ${r.segments[1].to}</div></div></div>`:'';return `<div class="card${r.isBest?' best':''}"><div class="card-top"><div class="airlines"><div class="alogo ${alCls(al1)}">${alShort(al1)}</div><span class="airline-nm">${al1}</span><span style="color:var(--text3);font-size:11px;margin:0 2px">+</span><div class="alogo ${alCls(al2)}">${alShort(al2)}</div><span class="airline-nm">${al2}</span></div><div class="badges">${best}<span class="badge badge-virtual">Virtual interlining</span>${ratingBadge(r.rating)}</div></div>${sh}<div class="legs"><div class="leg"><div><div class="t">${dep}</div><div class="ap">${r.from}</div></div><div class="leg-mid"><div class="l-dur">${dur}</div><div class="l-bar"></div><div class="l-info">via ${r.hub||'?'}</div></div><div><div class="t r">${arr}</div><div class="ap r">${r.to}</div></div></div></div><div class="disc">ℹ Voli non collegati: se il primo ritarda il secondo non aspetta.</div><div class="card-bot"><div class="price-block"><span class="p-main">€${r.price}</span></div><a class="buy-btn" href="${url}"${tgt}>Acquista ↗</a></div></div>`;}
   return '';
 }
-
-// ── STATE ─────────────────────────────────────────────────────────────────
-let allResults = null;
-let currentFilter = 'all';
-let tripType = 'oneway';
-
-function renderCards(){
-  if(!allResults)return;
-  const filtered = currentFilter==='all'
-    ? allResults.results
-    : allResults.results.filter(r=>r.type===currentFilter);
-  document.getElementById('cards').innerHTML = filtered.length
-    ? filtered.map(buildCard).join('')
-    : '<div class="no-res">Nessun risultato per questa strategia su questa rotta.</div>';
-}
-
-function filterTab(f,btn){
-  currentFilter=f;
-  document.querySelectorAll('.stab').forEach(b=>b.classList.remove('active'));
-  btn.classList.add('active');
-  renderCards();
-}
-
-// ── LOADING ───────────────────────────────────────────────────────────────
-const STEPS = [
-  'Connessione al server FairFly...',
-  'Cerco voli disponibili (Ryanair, Wizz, easyJet)...',
-  'Analizzo rotta inversa per il bidirezionale...',
-  'Identifico combinazioni virtual interlining...',
-  'Calcolo risparmio e rating per ogni risultato...',
-];
-
-function startLoading(){
-  document.getElementById('results').classList.remove('visible');
-  document.getElementById('error-box').classList.remove('visible');
-  document.getElementById('loading').style.display='block';
-  document.getElementById('load-steps').innerHTML=STEPS.map((s,i)=>
-    `<li class="load-step" id="ls-${i}"><div class="sdot" id="sd-${i}"></div>${s}</li>`
-  ).join('');
-}
-
-function stepActive(i){
-  document.getElementById(`ls-${i}`)?.classList.add('active');
-  document.getElementById(`sd-${i}`)?.classList.add('spinning');
-}
-
-function stepDone(i){
-  const el=document.getElementById(`ls-${i}`);
-  const dot=document.getElementById(`sd-${i}`);
-  el?.classList.remove('active');el?.classList.add('done');
-  if(dot){dot.classList.remove('spinning');dot.classList.add('done');dot.textContent='✓';}
-}
-
-function stopLoading(){ document.getElementById('loading').style.display='none'; }
-
-function showError(title,msg){
-  stopLoading();
-  document.getElementById('error-title').textContent=title;
-  document.getElementById('error-msg').textContent=msg;
-  document.getElementById('error-box').classList.add('visible');
-}
-
-// ── SEARCH ────────────────────────────────────────────────────────────────
+let allResults=null,currentFilter='all',tripType='oneway',coldstartTimer=null;
+function renderCards(){if(!allResults)return;const filtered=currentFilter==='all'?allResults.results:allResults.results.filter(r=>r.type===currentFilter);document.getElementById('cards').innerHTML=filtered.length?filtered.map(buildCard).join(''):'<div class="no-res">Nessun risultato per questa strategia.<br>Prova a cambiare data o aeroporti alternativi.</div>';}
+function filterTab(f,btn){currentFilter=f;document.querySelectorAll('.stab').forEach(b=>b.classList.remove('active'));btn.classList.add('active');renderCards();}
+const STEPS=['Connessione al server FairFly...','Cerco voli disponibili...','Analizzo rotta inversa...','Identifico virtual interlining...','Calcolo risparmio e rating...'];
+function startLoading(){document.getElementById('results').classList.remove('visible');document.getElementById('error-box').classList.remove('visible');document.getElementById('loading').style.display='block';document.getElementById('coldstart-note').classList.remove('visible');document.getElementById('load-steps').innerHTML=STEPS.map((s,i)=>`<li class="load-step" id="ls-${i}"><div class="sdot" id="sd-${i}"></div>${s}</li>`).join('');coldstartTimer=setTimeout(()=>{document.getElementById('coldstart-note').classList.add('visible');},10000);}
+function stepActive(i){document.getElementById(`ls-${i}`)?.classList.add('active');document.getElementById(`sd-${i}`)?.classList.add('spinning');}
+function stepDone(i){const el=document.getElementById(`ls-${i}`),dot=document.getElementById(`sd-${i}`);el?.classList.remove('active');el?.classList.add('done');if(dot){dot.classList.remove('spinning');dot.classList.add('done');dot.textContent='✓';}}
+function stopLoading(){clearTimeout(coldstartTimer);document.getElementById('loading').style.display='none';document.getElementById('coldstart-note').classList.remove('visible');}
+function showError(msg){stopLoading();document.getElementById('error-msg').textContent=msg;document.getElementById('error-box').classList.add('visible');}
 async function doSearch(){
-  const from=document.getElementById('from').value;
-  const to=document.getElementById('to').value;
-  const dep=document.getElementById('dep').value;
-  const pax=document.getElementById('pax').value;
-
+  const from=document.getElementById('from').value,to=document.getElementById('to').value,dep=document.getElementById('dep').value,pax=document.getElementById('pax').value;
   if(from===to){alert('Seleziona due aeroporti diversi.');return;}
-  if(!dep){alert('Seleziona una data di partenza.');return;}
-
-  const fromCity=AP.find(a=>a.c===from)?.city||from;
-  const toCity=AP.find(a=>a.c===to)?.city||to;
-
+  if(!dep){alert('Seleziona una data.');return;}
+  const fromCity=AP.find(a=>a.c===from)?.city||from,toCity=AP.find(a=>a.c===to)?.city||to;
   document.getElementById('search-btn').disabled=true;
-  startLoading();
-  stepActive(0);
-
-  try {
-    stepActive(1);
-
-    const res = await fetch(`${BACKEND_URL}/api/search`, {
-      method: 'POST',
-      headers: {'Content-Type':'application/json'},
-      body: JSON.stringify({from, to, date: dep, adults: pax, tripType})
-    });
-
+  startLoading();stepActive(0);stepActive(1);
+  try{
+    const res=await fetch(`${BACKEND_URL}/api/search`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({from,to,date:dep,adults:pax,tripType})});
     stepDone(0);stepDone(1);stepActive(2);
-
-    if(!res.ok){
-      const err = await res.json();
-      throw new Error(err.error || `Errore server: ${res.status}`);
-    }
-
-    const data = await res.json();
+    const data=await res.json();
+    if(!res.ok)throw new Error(data.error||'Errore sconosciuto.');
     stepDone(2);stepActive(3);stepActive(4);
-
-    allResults = data;
-    stepDone(3);stepDone(4);
-
+    allResults=data;stepDone(3);stepDone(4);
     setTimeout(()=>{
       stopLoading();
-      showResults(data, from, to, fromCity, toCity, dep);
-    }, 200);
-
-  } catch(err){
-    showError('Errore nella ricerca', err.message);
-  } finally {
-    document.getElementById('search-btn').disabled=false;
-  }
+      const{results,meta,cached}=data;
+      const saving=meta.minDirectPrice&&meta.minPrice?meta.minDirectPrice-meta.minPrice:0;
+      document.getElementById('cached-note').textContent=cached?'⚡ Risultati dalla cache':'';
+      document.getElementById('res-title').textContent=`${fromCity} → ${toCity}`;
+      document.getElementById('res-date').textContent=dep;
+      document.getElementById('summary-strip').innerHTML=`<div class="sum-card"><div class="sum-lbl">Prezzo diretto</div><div class="sum-val">€${meta.minDirectPrice||'—'}</div><div class="sum-sub">standard</div></div><div class="sum-card"><div class="sum-lbl">Miglior prezzo</div><div class="sum-val good">€${meta.minPrice||'—'}</div><div class="sum-sub">con FairFly</div></div><div class="sum-card"><div class="sum-lbl">Risparmio</div><div class="sum-val good">${saving>0?'€'+saving:'—'}</div><div class="sum-sub">${saving>0&&meta.minDirectPrice?Math.round(saving/meta.minDirectPrice*100)+'% in meno':''}</div></div>`;
+      document.getElementById('stabs').innerHTML=[{id:'all',lbl:`Tutti (${meta.totalResults})`},{id:'direct',lbl:`Diretto (${meta.directCount})`},{id:'bidirectional',lbl:`Bidirezionale (${meta.bidirCount})`},{id:'virtual',lbl:`Virtual interlining (${meta.virtualCount})`}].map((t,i)=>`<button class="stab${i===0?' active':''}" onclick="filterTab('${t.id}',this)">${t.lbl}</button>`).join('');
+      document.getElementById('hub-info').textContent=`✈ ${meta.totalResults} risultati · prezzo medio €${meta.avgPrice}`;
+      currentFilter='all';document.getElementById('results').classList.add('visible');renderCards();
+    },200);
+  }catch(err){showError(err.message);}
+  finally{document.getElementById('search-btn').disabled=false;}
 }
-
-function showResults(data, from, to, fromCity, toCity, dep){
-  const {results, meta, cached} = data;
-  const saving = meta.minDirectPrice && meta.minPrice ? meta.minDirectPrice - meta.minPrice : 0;
-
-  if(cached){
-    document.getElementById('cached-note').textContent='⚡ Risultati dalla cache — aggiornati di recente';
-  } else {
-    document.getElementById('cached-note').textContent='';
-  }
-
-  document.getElementById('res-title').textContent=`${fromCity} → ${toCity}`;
-  document.getElementById('res-date').textContent=dep;
-  document.getElementById('summary-strip').innerHTML=`
-    <div class="sum-card"><div class="sum-lbl">Prezzo diretto</div><div class="sum-val">€${meta.minDirectPrice||'—'}</div><div class="sum-sub">standard</div></div>
-    <div class="sum-card"><div class="sum-lbl">Miglior prezzo</div><div class="sum-val good">€${meta.minPrice||'—'}</div><div class="sum-sub">con FairFly</div></div>
-    <div class="sum-card"><div class="sum-lbl">Risparmio</div><div class="sum-val good">${saving>0?'€'+saving:'—'}</div><div class="sum-sub">${saving>0&&meta.minDirectPrice?Math.round(saving/meta.minDirectPrice*100)+'% in meno':''}</div></div>`;
-
-  document.getElementById('stabs').innerHTML=[
-    {id:'all',lbl:`Tutti (${meta.totalResults})`},
-    {id:'direct',lbl:`Diretto (${meta.directCount})`},
-    {id:'bidirectional',lbl:`Bidirezionale (${meta.bidirCount})`},
-    {id:'virtual',lbl:`Virtual interlining (${meta.virtualCount})`},
-  ].map((t,i)=>`<button class="stab${i===0?' active':''}" onclick="filterTab('${t.id}',this)">${t.lbl}</button>`).join('');
-
-  document.getElementById('hub-info').textContent=
-    `✈ ${meta.totalResults} risultati trovati · prezzo medio rotta €${meta.avgPrice}`;
-
-  currentFilter='all';
-  document.getElementById('results').classList.add('visible');
-  renderCards();
-}
-
-// ── INIT ──────────────────────────────────────────────────────────────────
-function setTrip(type,btn){
-  tripType=type;
-  document.querySelectorAll('.trip-btn').forEach(b=>b.classList.remove('active'));
-  btn.classList.add('active');
-  document.getElementById('ret-wrap').style.display=type==='return'?'block':'none';
-}
-
-function swapAps(){
-  const f=document.getElementById('from').value,t=document.getElementById('to').value;
-  document.getElementById('from').value=t;document.getElementById('to').value=f;
-}
-
+function setTrip(type,btn){tripType=type;document.querySelectorAll('.trip-btn').forEach(b=>b.classList.remove('active'));btn.classList.add('active');document.getElementById('ret-wrap').style.display=type==='return'?'block':'none';}
+function swapAps(){const f=document.getElementById('from').value,t=document.getElementById('to').value;document.getElementById('from').value=t;document.getElementById('to').value=f;}
 function init(){
-  const today=new Date();
-  const next=new Date(today.getTime()+30*24*60*60*1000);
-  document.getElementById('dep').value=next.toISOString().split('T')[0];
-  document.getElementById('ret').value=new Date(today.getTime()+37*24*60*60*1000).toISOString().split('T')[0];
+  const today=new Date(),todayStr=today.toISOString().split('T')[0],next=new Date(today.getTime()+30*24*60*60*1000);
+  const dep=document.getElementById('dep'),ret=document.getElementById('ret');
+  dep.min=todayStr;dep.value=next.toISOString().split('T')[0];
+  ret.min=todayStr;ret.value=new Date(today.getTime()+37*24*60*60*1000).toISOString().split('T')[0];
   const sorted=[...AP].sort((a,b)=>a.city.localeCompare(b.city));
-  ['from','to'].forEach(id=>{
-    document.getElementById(id).innerHTML=sorted.map(a=>`<option value="${a.c}">${a.city} (${a.c})</option>`).join('');
-  });
-  document.getElementById('from').value='MXP';
-  document.getElementById('to').value='BUD';
+  ['from','to'].forEach(id=>{document.getElementById(id).innerHTML=sorted.map(a=>`<option value="${a.c}">${a.city} (${a.c})</option>`).join('');});
+  document.getElementById('from').value='MXP';document.getElementById('to').value='BUD';
 }
-
 init();
 </script>
 </body>
